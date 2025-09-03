@@ -1,0 +1,15 @@
+# Local Python env and cache
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local secrets/config (never commit)
+.env
+.env.*
+*.secrets.*
+secrets.json
+secrets.local.json
+
+# VS Code
+.vscode/
