@@ -3,6 +3,14 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REPO_SLUG="paulkiley/ai-chat-context-keeper"
+_remote_url=$(git -C "$ROOT_DIR" remote get-url origin 2>/dev/null || true)
+REPO_SLUG=${REPO_SLUG:-$(printf "%s" "$_remote_url" | sed -E 's#.*github.com[:/]([^/]+/[^/.]+)(\.git)?$#\1#')}
+REPO_SLUG=${REPO_SLUG:-paulkiley/ai-chat-context-keeper}
+
+# Defaults you can override via env
+OPS_PROJECT_TITLE=${OPS_PROJECT_TITLE:-"Governance & Traceability"}
+OPS_Q3=${OPS_Q3:-"Q3-Foundation"}
+OPS_Q4=${OPS_Q4:-"Q4-Operationalization"}
 
 require() { command -v "$1" >/dev/null 2>&1 || { echo "Missing dependency: $1" >&2; exit 1; }; }
 
@@ -72,7 +80,7 @@ cmd_project_add_backlog() {
   if [[ -z "$proj_number" ]]; then echo "Usage: ops.sh project-add-backlog <project-number>" >&2; exit 2; fi
   echo "Adding Q3-Foundation issues to project $proj_number"
   local urls
-  urls=$(gh issue list -R "$REPO_SLUG" --state open --milestone "Q3-Foundation" --json url -q '.[].url')
+  urls=$(gh issue list -R "$REPO_SLUG" --state open --milestone "$OPS_Q3" --json url -q '.[].url')
   while IFS= read -r url; do
     [[ -z "$url" ]] && continue
     gh project item-add --project "$proj_number" --url "$url" || true
@@ -91,6 +99,9 @@ Commands:
   milestones         Create Q3/Q4 milestones (idempotent)
   project-create     Create user project (requires gh scopes project,read:project)
   project-add-backlog <project-number>  Add Q3 backlog issues to the project
+  project-sync       Auto-find or create the project by title and add Q3 backlog
+  pr --title "…" [--labels "…"] [--milestone "…"] [--base main]
+                     Create a PR with one command (auto-labels by title if omitted)
   help               Show this help
 
 Notes:
@@ -106,6 +117,7 @@ case "${1:-help}" in
   milestones) shift; cmd_milestones "$@" ;;
   project-create) shift; cmd_project_create "$@" ;;
   project-add-backlog) shift; cmd_project_add_backlog "$@" ;;
+  project-sync) shift; cmd_project_sync "$@" ;;
+  pr) shift; cmd_pr_create "$@" ;;
   help|*) cmd_help ;;
 esac
-
