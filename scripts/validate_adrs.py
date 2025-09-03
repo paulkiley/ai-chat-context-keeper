@@ -54,11 +54,24 @@ def check_adr(path: Path) -> list[str]:
         else:
             print(f"WARN {path.name}: missing '## Metadata' (legacy)")
 
-    # Security & Privacy section exists
+    # Security & Privacy section exists (require for ADRs tagged with data/storage/ingest)
     sec_ok = any(SEC_RE.match(ln.strip()) for ln in lines)
     if not sec_ok:
-        if adr_date >= enforce_date:
-            problems.append("missing '## Security & Privacy Considerations' (required for new ADRs)")
+        # Inspect tags (best-effort)
+        tags = None
+        for ln in lines:
+            if ln.strip().startswith("- tags:"):
+                tags = ln
+                break
+        requires_sec = False
+        if tags:
+            tag_str = tags.split(":", 1)[1]
+            for k in ("data", "storage", "ingest"):
+                if k in tag_str:
+                    requires_sec = True
+                    break
+        if adr_date >= enforce_date or requires_sec:
+            problems.append("missing '## Security & Privacy Considerations' (required for new or data-related ADRs)")
         else:
             print(f"WARN {path.name}: missing '## Security & Privacy' (legacy)")
 
