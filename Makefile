@@ -48,3 +48,7 @@ e2e: ## Run local end-to-end validation script
 
 smoke-staging: ## Rsync real history to a staging dir and run a safe smoke test
 	bash scripts/smoke_staging.sh
+
+
+doctor-commits: ## Check commit messages locally (cz or commitlint)
+	bash scripts/doctor_commits.sh
