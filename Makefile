@@ -46,5 +46,8 @@ docs-build: ## Build mkdocs site
 e2e: ## Run local end-to-end validation script
 	bash scripts/local_e2e.sh
 
+bench-save: ## Measure local save latency (ms)
+	$(UV) run python scripts/bench_save_latency.py
+
 smoke-staging: ## Rsync real history to a staging dir and run a safe smoke test
 	bash scripts/smoke_staging.sh
