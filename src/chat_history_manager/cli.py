@@ -32,7 +32,11 @@ def cmd_save(args: argparse.Namespace) -> int:
         v = os.environ.get(name)
         return str(v).lower() in {"1", "true", "yes", "on", "y", "t"}
 
-    read_only = _truthy_env("CHM_READ_ONLY") or _truthy_env("CHATLOG_READ_ONLY") or getattr(settings, "READ_ONLY", False)
+    read_only = (
+        _truthy_env("CHM_READ_ONLY")
+        or _truthy_env("CHATLOG_READ_ONLY")
+        or getattr(settings, "READ_ONLY", False)
+    )
 
     if read_only and not args.dry_run:
         print("Read-only mode enabled; use --dry-run to preview.", file=sys.stderr)

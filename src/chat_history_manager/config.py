@@ -50,12 +50,12 @@ def _interpolate(text: str) -> str:
 class Settings(BaseSettings):
     """
     Manages application settings using environment variables and a .env file.
-    
+
     The base directory for chat history defaults to a hidden directory
     in the user's home folder, which is a robust cross-platform standard.
     """
     CHAT_HISTORY_BASE_DIR: Path = _default_history_base_dir()
-    
+
     @property
     def CHAT_HISTORY_INDEX_FILE(self) -> Path:
         return self.CHAT_HISTORY_BASE_DIR / "chat_history_index.json"
