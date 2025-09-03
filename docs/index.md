@@ -1,4 +1,4 @@
-# AI Chat Context Keeper
+# {{ project_title }}
 
 Minimal, portable tools to capture and quickly resume AI chat context — even after crashes, refreshes, or session resets.
 
