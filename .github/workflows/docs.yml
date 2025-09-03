@@ -20,7 +20,13 @@ jobs:
       - name: Install mkdocs
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs mkdocs-material
+          pip install mkdocs mkdocs-material mkdocs-macros-plugin
+      - name: Install graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+      - name: Generate decision registry and graph
+        run: |
+          python scripts/generate_decision_registry.py
+          dot -Tpng docs/adr/graph.dot -o docs/adr/graph.png
       - name: Build
         run: |
           mkdocs build
