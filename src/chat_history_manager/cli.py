@@ -1,12 +1,11 @@
-import sys
-import os
 import argparse
-from typing import Optional, List
+import os
+import sys
+from typing import List, Optional
 
-from .main import save_chat_history, retrieve_chat_history
-from .utils import get_next_chunk_number
-from .config import settings
 from .branding import PRODUCT_TITLE
+from .config import settings
+from .main import retrieve_chat_history, save_chat_history
 
 
 def _parse_keywords(raw: Optional[str]) -> Optional[List[str]]:
@@ -34,9 +33,7 @@ def cmd_save(args: argparse.Namespace) -> int:
         return str(v).lower() in {"1", "true", "yes", "on", "y", "t"}
 
     read_only = (
-        _truthy_env("CHM_READ_ONLY")
-        or _truthy_env("CHATLOG_READ_ONLY")
-        or getattr(settings, "READ_ONLY", False)
+        _truthy_env("CHM_READ_ONLY") or _truthy_env("CHATLOG_READ_ONLY") or getattr(settings, "READ_ONLY", False)
     )
 
     if read_only and not args.dry_run:
@@ -74,8 +71,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="chatlog",
         description=(
-            f"{PRODUCT_TITLE}: capture and retrieve AI chat context chunks "
-            "for resilient recovery and quick resumption."
+            f"{PRODUCT_TITLE}: capture and retrieve AI chat context chunks for resilient recovery and quick resumption."
         ),
     )
 

@@ -105,3 +105,8 @@ Clean Up History (example)
   - `git rebase -i origin/main`
   - Mark small follow-ups as `fixup` or `squash` under the main commit.
   - Force-push your branch if needed: `git push -f`.
+
+
+## PR Dependency Ordering
+
+See docs/ops/pr-ordering.md for how dependency mapping works and local triage commands.

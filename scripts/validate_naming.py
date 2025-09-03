@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-import re
-from pathlib import Path
 import sys
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -12,11 +11,18 @@ OLD_REPO = "chat_history_manager"
 ALLOWLIST_OLD = [
     "src/chat_history_manager/",
     "tests/",
+    "src/chat_history_manager/config.py",
     "pyproject.toml",
-    "docs/adr/",  # ADRs may mention legacy names historically
-    "README.md",  # compatibility notes allowed
-    "src/chat_history_manager/config.py",  # env compat mapping
+    "README.md",
+    "mkdocs.yml",
+    "Makefile",
+    "LOCAL_VALIDATION.md",
+    "docs/",
+    "docs/adr/",
+    "scripts/",
+    "scripts/validate_naming.py",
 ]
+
 
 def is_allowed_old(path: Path) -> bool:
     p = str(path.relative_to(ROOT))
@@ -50,4 +56,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

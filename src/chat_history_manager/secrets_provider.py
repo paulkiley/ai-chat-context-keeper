@@ -53,4 +53,3 @@ def default_provider() -> ChainSecretProvider:
 def get_secret(name: str, provider: Optional[SecretProvider] = None) -> Optional[str]:
     prov = provider or default_provider()
     return prov.get(name)
-

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -95,7 +95,8 @@ def write_dot(entries: list[AdrEntry]) -> Path:
     lines = ["digraph ADR {", "rankdir=LR;"]
     # Nodes
     for e in entries:
-        label = f"{e.id}: {e.title.replace('"', '\\"')}\n({e.status})"
+        title_escaped = e.title.replace('"', '\"')
+        label = f"{e.id}: {title_escaped}\n({e.status})"
         lines.append(f'  "{e.id}" [label="{label}"];')
     # Edges
     for e in entries:
@@ -119,4 +120,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

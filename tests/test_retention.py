@@ -7,6 +7,7 @@ def test_retention_max_chunks(monkeypatch, temp_history_dir):
     monkeypatch.setenv("CHAT_RETENTION_MAX_CHUNKS", "1")
     # Re-import settings to pick up new env in this process
     from chat_history_manager import config
+
     config.settings.CHAT_RETENTION_MAX_CHUNKS = 1
 
     p1 = save_chat_history("conv-A", project_name="PZ", topic="T1", summary="S-A")
@@ -17,4 +18,3 @@ def test_retention_max_chunks(monkeypatch, temp_history_dir):
     idx = read_chat_index()
     assert len(idx) == 1
     assert idx[0].summary == "S-B"
-

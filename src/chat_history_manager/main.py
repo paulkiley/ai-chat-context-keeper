@@ -1,21 +1,22 @@
 import uuid
-from typing import Optional, List
 from pathlib import Path
+from typing import List, Optional
 
-from .models import IndexEntry
 from .config import settings
+from .models import IndexEntry
 from .utils import (
-    ensure_chat_history_dir_exists,
-    get_next_chunk_number,
-    write_chat_chunk,
-    read_chat_index,
-    update_chat_index,
-    extract_latest_conversation,
-    get_current_datetime,
-    read_chat_chunk,
     apply_retention_policies,
     chat_history_lock,
+    ensure_chat_history_dir_exists,
+    extract_latest_conversation,
+    get_current_datetime,
+    get_next_chunk_number,
+    read_chat_chunk,
+    read_chat_index,
+    update_chat_index,
+    write_chat_chunk,
 )
+
 
 def save_chat_history(
     full_conversation: str,
@@ -34,9 +35,7 @@ def save_chat_history(
 
     with chat_history_lock():
         chunk_number = get_next_chunk_number()
-        prospective_path = (
-            settings.CHAT_HISTORY_BASE_DIR / f"chat_history_{chunk_number:05d}.md"
-        )
+        prospective_path = settings.CHAT_HISTORY_BASE_DIR / f"chat_history_{chunk_number:05d}.md"
         current_datetime = get_current_datetime()
 
         if dry_run:
@@ -59,15 +58,16 @@ def save_chat_history(
         apply_retention_policies()
         return file_path
 
+
 def retrieve_chat_history(
     project_name: Optional[str] = None,
     topic: Optional[str] = None,
     session_id: Optional[str] = None,
-    limit_chunks: int = 1
+    limit_chunks: int = 1,
 ) -> List[str]:
     """Retrieves relevant chat history chunks based on criteria."""
     index_entries = read_chat_index()
-    
+
     relevant_chunks = []
     for entry in index_entries:
         match = True
@@ -77,12 +77,12 @@ def retrieve_chat_history(
             match = False
         if session_id and entry.session_id != session_id:
             match = False
-        
+
         if match:
             chunk_number = int(entry.file.split("_")[-1].replace(".md", ""))
             if chunk_content := read_chat_chunk(chunk_number):
                 relevant_chunks.append(chunk_content)
                 if len(relevant_chunks) >= limit_chunks:
                     break
-    
+
     return relevant_chunks

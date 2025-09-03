@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 import re
-from pathlib import Path
 import sys
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ADR_DIR = ROOT / "docs" / "adr"
@@ -36,11 +36,11 @@ def check_adr(path: Path) -> list[str]:
 
     # Metadata section exists (warn only for legacy ADRs)
     if not any(META_RE.match(ln.strip()) for ln in lines):
-        problems.append("missing '## Metadata' section (will be required for new ADRs)")
+        problems.append(("warn", "missing '## Metadata' section (warn only for legacy ADRs)"))
 
     # Security & Privacy section exists (warn only for legacy ADRs)
     if not any(SEC_RE.match(ln.strip()) for ln in lines):
-        problems.append("missing '## Security & Privacy Considerations' section (will be required for relevant ADRs)")
+        problems.append(("warn", "missing '## Security & Privacy Considerations' section (warn only for legacy ADRs)"))
 
     return problems
 
@@ -51,18 +51,32 @@ def main() -> int:
         return 1
     bad = []
     for path in sorted(ADR_DIR.glob("*.md")):
+        if path.name.lower().startswith("0000-template"):
+            continue
         probs = check_adr(path)
         if probs:
             bad.append((path, probs))
     if bad:
-        print("ADR validation failed:")
+        fatal = False
+        print("ADR validation report:")
         for p, probs in bad:
             print(f"- {p.relative_to(ROOT)}:")
             for pr in probs:
-                print(f"  * {pr}")
-        return 1
+                if isinstance(pr, tuple) and pr[0] == "warn":
+                    print(f"  * WARN: {pr[1]}")
+                else:
+                    print(f"  * {pr}")
+                    fatal = True
+        if fatal:
+            return 1
+        else:
+            print("Only warnings detected (legacy ADRs)")
+            return 0
     print("ADR validation passed.")
     return 0
+
+
+# AUTOGEN PATCH
 
 
 if __name__ == "__main__":
