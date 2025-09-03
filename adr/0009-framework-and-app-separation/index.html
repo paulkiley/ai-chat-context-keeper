@@ -16,7 +16,7 @@
     
     
       
-        <title>8. Naming and Messaging Strategy - AI Chat Context Keeper</title>
+        <title>9. Framework and App Separation - AI Chat Context Keeper</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#8-naming-and-messaging-strategy" class="md-skip">
+        <a href="#9-framework-and-app-separation" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              8. Naming and Messaging Strategy
+              9. Framework and App Separation
             
           </span>
         </div>
@@ -947,34 +947,29 @@
   
 
 
-<h1 id="8-naming-and-messaging-strategy">8. Naming and Messaging Strategy<a class="headerlink" href="#8-naming-and-messaging-strategy" title="Permanent link">&para;</a></h1>
+<h1 id="9-framework-and-app-separation">9. Framework and App Separation<a class="headerlink" href="#9-framework-and-app-separation" title="Permanent link">&para;</a></h1>
 <p>Date: 2025-09-03</p>
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
 <p>Accepted</p>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>Names should clearly communicate the purpose of the project: resilient AI chat context capture and resumption. Repo naming should follow common OSS conventions (kebab-case), while Python packaging keeps snake_case imports. Environment variables should use a consistent, scoped prefix.</p>
+<p>The framework (library + CLI) should evolve independently from applications consuming it. Clear versioning and boundaries improve stability, reuse, and upgrades.</p>
 <h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Repository naming: use kebab-case <code>ai-chat-context-keeper</code> for the GitHub repository.</li>
-<li>Python packaging: keep the import path <code>chat_history_manager</code>; set distribution/project name to <code>ai-chat-context-keeper</code>.</li>
-<li>CLI: keep <code>chatlog</code> and add a short alias <code>chm</code>.</li>
-<li>Environment variables: standardize on <code>CHM_…</code> prefix. Maintain backward compatibility with existing names during a deprecation window.</li>
-<li>Preferred: <code>CHM_HISTORY_BASE_DIR</code>, <code>CHM_RETENTION_MAX_CHUNKS</code>, <code>CHM_RETENTION_MAX_AGE_DAYS</code>, <code>CHM_READ_ONLY</code>.</li>
-<li>Compatibility: also read <code>CHAT_HISTORY_BASE_DIR</code>, <code>CHAT_RETENTION_*</code>, and <code>CHATLOG_READ_ONLY</code>.</li>
-<li>Messaging: update README/docs to emphasize crash-safe capture and rapid resumption of AI chat context.</li>
-<li>App separation: provide a separate example app repository (<code>ai-chat-context-app-template</code>) that consumes the framework as a dependency.</li>
-</ol>
+<ul>
+<li>Keep the framework in a dedicated repository (<code>ai-chat-context-keeper</code>) with SemVer tags and published artifacts.</li>
+<li>Provide an example application repository (<code>ai-chat-context-app-template</code>) that depends on the framework by version (or git tag) and demonstrates configuration via <code>CHM_*</code> environment variables.</li>
+<li>For development, allow either path editable installs or git-based installs; for CI/CD, pin exact framework versions.</li>
+</ul>
 <h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
 <h3 id="positive">Positive<a class="headerlink" href="#positive" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Clear purpose and CNCF-aligned neutral naming.</li>
-<li>Backward compatible transition for configuration.</li>
-<li>Better discoverability via repo name and docs.</li>
+<li>Decoupled release cadence; easier upgrades and rollbacks for apps.</li>
+<li>Clearer ownership and scope boundaries.</li>
+<li>Encourages reuse across multiple applications.</li>
 </ul>
 <h3 id="negative">Negative<a class="headerlink" href="#negative" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Requires updating badges/links after repo rename.</li>
-<li>Two sets of env var names to support during deprecation.</li>
+<li>Two repositories to maintain; coordination for cross-cutting changes.</li>
+<li>Requires publishing/tagging discipline in the framework.</li>
 </ul>
 
 
