@@ -11,6 +11,8 @@ ADR_DIR = ROOT / "docs" / "adr"
 TITLE_RE = re.compile(r"^#\s+\d+\.\s+.+$")
 DATE_RE = re.compile(r"^Date:\s+\d{4}-\d{2}-\d{2}$")
 STATUS_RE = re.compile(r"^##\s+Status$", re.IGNORECASE)
+META_RE = re.compile(r"^##\s+Metadata$", re.IGNORECASE)
+SEC_RE = re.compile(r"^##\s+Security\s*&\s*Privacy", re.IGNORECASE)
 
 
 def check_adr(path: Path) -> list[str]:
@@ -31,6 +33,14 @@ def check_adr(path: Path) -> list[str]:
     # Status section exists
     if not any(STATUS_RE.match(ln.strip()) for ln in lines):
         problems.append("missing '## Status' section")
+
+    # Metadata section exists (warn only for legacy ADRs)
+    if not any(META_RE.match(ln.strip()) for ln in lines):
+        problems.append("missing '## Metadata' section (will be required for new ADRs)")
+
+    # Security & Privacy section exists (warn only for legacy ADRs)
+    if not any(SEC_RE.match(ln.strip()) for ln in lines):
+        problems.append("missing '## Security & Privacy Considerations' section (will be required for relevant ADRs)")
 
     return problems
 
@@ -57,4 +67,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

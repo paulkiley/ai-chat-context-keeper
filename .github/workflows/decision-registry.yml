@@ -1,0 +1,32 @@
+name: decision-registry
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate registry + dot
+        run: |
+          python scripts/generate_decision_registry.py
+      - name: Install graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+      - name: Render graph PNG
+        run: dot -Tpng docs/adr/graph.dot -o docs/adr/graph.png
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: decision-registry
+          path: |
+            docs/adr/registry.json
+            docs/adr/graph.dot
+            docs/adr/graph.png
+
