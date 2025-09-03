@@ -19,6 +19,7 @@ Names should clearly communicate the purpose of the project: resilient AI chat c
    - Preferred: `CHM_HISTORY_BASE_DIR`, `CHM_RETENTION_MAX_CHUNKS`, `CHM_RETENTION_MAX_AGE_DAYS`, `CHM_READ_ONLY`.
    - Compatibility: also read `CHAT_HISTORY_BASE_DIR`, `CHAT_RETENTION_*`, and `CHATLOG_READ_ONLY`.
 5. Messaging: update README/docs to emphasize crash-safe capture and rapid resumption of AI chat context.
+6. App separation: provide a separate example app repository (`ai-chat-context-app-template`) that consumes the framework as a dependency.
 
 ## Consequences
 
@@ -32,4 +33,3 @@ Names should clearly communicate the purpose of the project: resilient AI chat c
 
 - Requires updating badges/links after repo rename.
 - Two sets of env var names to support during deprecation.
-
