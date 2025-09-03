@@ -52,7 +52,7 @@ changelog_file = "CHANGELOG.md"
 where = ["src"]
 
 [tool.ruff]
-line-length = 88
+line-length = 120
 target-version = "py38"
 
 [tool.ruff.lint]
