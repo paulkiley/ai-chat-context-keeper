@@ -70,3 +70,11 @@ ruff check .                  # lint
 ruff format .                 # format
 pytest -q
 ```
+
+
+## Commit Messages & Local Checks
+
+- Conventional Commits enforced locally and in CI.
+- Install hooks: `make hooks` (includes commit-msg).
+- Preflight: `make doctor-commits` (uses Commitizen or commitlint).
+- Fix history: `git rebase -i origin/main` (reword), or squash and `git push --force-with-lease`.
