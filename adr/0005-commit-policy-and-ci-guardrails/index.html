@@ -1067,16 +1067,18 @@
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
 <p>Readable history and safe merging practices are essential for collaboration and traceability across environments.</p>
 <h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
-<p>Adopt Conventional Commits and atomic commits. Enforce via pre-commit/Commitizen locally and CI checks for commit messages and PR titles. Recommend required status checks on <code>main</code> for merges.</p>
+<p>Adopt Conventional Commits and atomic commits. Enforce via pre-commit/Commitizen locally and CI checks for commit messages and PR titles. Set commit header max length to 120 chars. Recommend required status checks on <code>main</code> for merges (commitlint, semantic PR title; optionally tests and lint).</p>
 <h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
 <h3 id="positive">Positive<a class="headerlink" href="#positive" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Clean, searchable history and reliable automation.</li>
 <li>Consistency across contributors and tools.</li>
+<li>Flexible header length (120) balances clarity and concision.</li>
 </ul>
 <h3 id="negative">Negative<a class="headerlink" href="#negative" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Slight overhead for contributors to learn and adhere to the standard.</li>
+<li>Longer headers can still degrade readability if overused.</li>
 </ul>
 
 

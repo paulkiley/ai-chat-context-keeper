@@ -9,10 +9,6 @@
       
       
       
-        <link rel="prev" href="../0003-cli-surface-and-vscode-tasks/">
-      
-      
-        <link rel="next" href="../0005-commit-policy-and-ci-guardrails/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +16,7 @@
     
     
       
-        <title>4 - Chat History Manager</title>
+        <title>7. Write Lock and Safety Flags (Read-only, Dry-run) - Chat History Manager</title>
       
     
     
@@ -62,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#4-testing-and-tooling-strategy" class="md-skip">
+        <a href="#7-write-lock-and-safety-flags-read-only-dry-run" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +92,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4
+              7. Write Lock and Safety Flags (Read-only, Dry-run)
             
           </span>
         </div>
@@ -256,12 +252,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../0001-adopt-12-factor-config-and-secrets-chain/" class="md-tabs__link">
           
   
@@ -549,29 +543,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -584,7 +573,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             ADRs
@@ -664,32 +653,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    4
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../0004-testing-and-tooling-strategy/" class="md-nav__link">
         
   
   
@@ -700,86 +667,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#status" class="md-nav__link">
-    <span class="md-ellipsis">
-      Status
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#context" class="md-nav__link">
-    <span class="md-ellipsis">
-      Context
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#decision" class="md-nav__link">
-    <span class="md-ellipsis">
-      Decision
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#consequences" class="md-nav__link">
-    <span class="md-ellipsis">
-      Consequences
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Consequences">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#positive" class="md-nav__link">
-    <span class="md-ellipsis">
-      Positive
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#negative" class="md-nav__link">
-    <span class="md-ellipsis">
-      Negative
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1060,32 +947,29 @@
   
 
 
-<h1 id="4-testing-and-tooling-strategy">4. Testing and Tooling Strategy<a class="headerlink" href="#4-testing-and-tooling-strategy" title="Permanent link">&para;</a></h1>
+<h1 id="7-write-lock-and-safety-flags-read-only-dry-run">7. Write Lock and Safety Flags (Read-only, Dry-run)<a class="headerlink" href="#7-write-lock-and-safety-flags-read-only-dry-run" title="Permanent link">&para;</a></h1>
 <p>Date: 2025-09-03</p>
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
 <p>Accepted</p>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>We need a modern, fast developer workflow with robust testing and linting, and consistent environments.</p>
+<p>Accidental writes to production-like history folders and concurrent writers can corrupt data or cause loss. We need safeguards to support safe local validation and staged testing without sophisticated infrastructure.</p>
 <h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
-<p>Adopt:</p>
 <ul>
-<li><code>uv</code> for venv and dependency management.</li>
-<li><code>pytest</code> for tests with coverage ≥85%.</li>
-<li><code>ruff</code> for lint and format, with line length set to 120.</li>
-<li><code>pre-commit</code> hooks for local enforcement (ruff, commit-msg via Commitizen/commitlint).</li>
-<li>CI workflows for tests (matrix) and lint. In CI, run <code>ruff check --fix</code> and <code>ruff format</code> before strict checks to reduce noise on PRs (auto-fixes are not pushed).</li>
+<li>Introduce a simple write lock around save operations (flock where available; fallback to exclusive file create). Remove the lockfile after operations.</li>
+<li>Add a read-only mode via environment flags (<code>CHM_READ_ONLY</code>, <code>CHATLOG_READ_ONLY</code>, or config <code>READ_ONLY</code>) that blocks writes unless <code>--dry-run</code> is used.</li>
+<li>Add <code>--dry-run</code> to <code>chatlog save</code> to preview the next chunk path and index entry without performing writes.</li>
 </ul>
 <h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
 <h3 id="positive">Positive<a class="headerlink" href="#positive" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Fast feedback loops; consistent style and quality.</li>
-<li>Clear, enforceable quality bars in CI.</li>
-<li>Pragmatic style (120 chars) reduces unnecessary wrapping/churn.</li>
+<li>Reduces risk of concurrent write corruption.</li>
+<li>Enables safe testing against real directories (read-only + dry-run) and staging copies.</li>
+<li>Clear operational story for local-first workflows.</li>
 </ul>
 <h3 id="negative">Negative<a class="headerlink" href="#negative" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Additional tooling to install locally.</li>
-<li>CI auto-fix does not change submitted code; developers still need local hooks to keep diffs clean.</li>
+<li>Locking semantics may vary on network filesystems; best-effort only.</li>
+<li>Additional code paths and flags to support, document, and test.</li>
 </ul>
 
 
