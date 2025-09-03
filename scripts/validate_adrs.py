@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
 import sys
@@ -13,6 +14,13 @@ DATE_RE = re.compile(r"^Date:\s+\d{4}-\d{2}-\d{2}$")
 STATUS_RE = re.compile(r"^##\s+Status$", re.IGNORECASE)
 META_RE = re.compile(r"^##\s+Metadata$", re.IGNORECASE)
 SEC_RE = re.compile(r"^##\s+Security\s*&\s*Privacy", re.IGNORECASE)
+
+def parse_date(lines: list[str]) -> str | None:
+    for ln in lines[:20]:
+        s = ln.strip()
+        if DATE_RE.match(s):
+            return s.split(":", 1)[1].strip()
+    return None
 
 
 def check_adr(path: Path) -> list[str]:
@@ -34,13 +42,25 @@ def check_adr(path: Path) -> list[str]:
     if not any(STATUS_RE.match(ln.strip()) for ln in lines):
         problems.append("missing '## Status' section")
 
-    # Metadata section exists (warn only for legacy ADRs)
-    if not any(META_RE.match(ln.strip()) for ln in lines):
-        problems.append("missing '## Metadata' section (will be required for new ADRs)")
+    # Enforcement threshold for new ADRs
+    enforce_date = os.environ.get("ADR_ENFORCE_DATE", "2025-09-03")
+    adr_date = parse_date(lines) or "1900-01-01"
 
-    # Security & Privacy section exists (warn only for legacy ADRs)
-    if not any(SEC_RE.match(ln.strip()) for ln in lines):
-        problems.append("missing '## Security & Privacy Considerations' section (will be required for relevant ADRs)")
+    # Metadata section exists
+    meta_ok = any(META_RE.match(ln.strip()) for ln in lines)
+    if not meta_ok:
+        if adr_date >= enforce_date:
+            problems.append("missing '## Metadata' section (required for new ADRs)")
+        else:
+            print(f"WARN {path.name}: missing '## Metadata' (legacy)")
+
+    # Security & Privacy section exists
+    sec_ok = any(SEC_RE.match(ln.strip()) for ln in lines)
+    if not sec_ok:
+        if adr_date >= enforce_date:
+            problems.append("missing '## Security & Privacy Considerations' (required for new ADRs)")
+        else:
+            print(f"WARN {path.name}: missing '## Security & Privacy' (legacy)")
 
     return problems
 
