@@ -1,4 +1,11 @@
 site_name: AI Chat Context Keeper
+plugins:
+  - macros:
+      variables:
+        project_title: AI Chat Context Keeper
+        repo_slug: ai-chat-context-keeper
+        cli_primary: chatlog
+        env_prefix: CHM
 repo_url: https://github.com/paulkiley/chat_history_manager
 theme:
   name: material

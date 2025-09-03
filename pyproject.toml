@@ -37,6 +37,7 @@ secrets = [
 docs = [
     "mkdocs>=1.5",
     "mkdocs-material>=9.5",
+    "mkdocs-macros-plugin>=1.0.5",
 ]
 
 [tool.commitizen]
