@@ -1,0 +1,9 @@
+# platform-team (temporary: single-owner during early stage)
+# When org/team exists, replace @paulkiley with @org/platform-team
+
+# Core governance files require review by platform-team
+.github/workflows/*.yml   @paulkiley
+.github/pr-deps.json      @paulkiley
+scripts/validate_*.py     @paulkiley
+docs/ops/*.md             @paulkiley
+docs/adr/*.md             @paulkiley
