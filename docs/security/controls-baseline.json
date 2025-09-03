@@ -1,0 +1,8 @@
+{
+  "allowed_controls": [
+    "NIST-800-53:SC-28",
+    "NIST-800-53:AU-2",
+    "NIST-800-53:IA-2",
+    "NIST-800-53:AC-3"
+  ]
+}

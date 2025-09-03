@@ -50,6 +50,9 @@ def cmd_save(args: argparse.Namespace) -> int:
         session_id=args.session_id,
         summary=args.summary,
         keywords=_parse_keywords(args.keywords),
+        adrs=_parse_keywords(args.adrs),
+        epics=_parse_keywords(args.epics),
+        capabilities=_parse_keywords(args.capabilities),
         dry_run=bool(args.dry_run),
     )
     print(str(path))
@@ -88,6 +91,9 @@ def build_parser() -> argparse.ArgumentParser:
     ps.add_argument("--session-id", help="Optional session identifier")
     ps.add_argument("--summary", help="Optional summary for the chunk")
     ps.add_argument("--keywords", help="Comma-separated keywords (e.g. 'foo,bar')")
+    ps.add_argument("--adrs", help="Comma-separated ADR IDs (e.g. '0003,0007')")
+    ps.add_argument("--epics", help="Comma-separated epic links/IDs")
+    ps.add_argument("--capabilities", help="Comma-separated capability tags")
     ps.add_argument("--file", help="Read content from file instead of stdin")
     ps.add_argument("--dry-run", action="store_true", help="Do not write; print prospective path")
     ps.set_defaults(func=cmd_save)
