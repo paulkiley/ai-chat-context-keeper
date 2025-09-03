@@ -9,6 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 ADR_DIR = ROOT / "docs" / "adr"
 TRACE = ROOT / "docs" / "traceability.json"
+CTRL = ROOT / "docs" / "security" / "controls-baseline.json"
 
 TITLE_RE = re.compile(r"^#\s+(\d+)\.\s+.+$")
 
@@ -36,6 +37,12 @@ def validate_traceability() -> list[str]:
         return [f"invalid JSON: {e}"]
 
     adrs_present = collect_adr_ids()
+    allowed_controls = set()
+    if CTRL.exists():
+        try:
+            allowed_controls = set(json.loads(CTRL.read_text(encoding="utf-8")).get("allowed_controls", []))
+        except Exception:
+            pass
     inits = data.get("initiatives", [])
     if not isinstance(inits, list):
         problems.append("initiatives must be a list")
@@ -49,6 +56,16 @@ def validate_traceability() -> list[str]:
         for adr in adr_list:
             if adr not in adrs_present:
                 problems.append(f"initiative {init.get('id','?')}: ADR {adr} not found in docs/adr/")
+        # OKR/epic/controls basic checks
+        for okr in init.get("okrs", []):
+            if not isinstance(okr, str) or not okr.startswith("OKR-"):
+                problems.append(f"initiative {init.get('id','?')}: invalid OKR id '{okr}' (must start with OKR-)")
+        for epic in init.get("epics", []):
+            if not (isinstance(epic, str) and epic.startswith("http")):
+                problems.append(f"initiative {init.get('id','?')}: invalid epic link '{epic}' (must be URL)")
+        for ctrl in init.get("controls", []):
+            if allowed_controls and ctrl not in allowed_controls:
+                problems.append(f"initiative {init.get('id','?')}: control '{ctrl}' not in baseline")
     return problems
 
 
@@ -65,4 +82,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
