@@ -1,12 +1,15 @@
-from typing import List, Optional
-from pydantic import BaseModel, Field
 from datetime import datetime
+from typing import List, Optional
+
+from pydantic import BaseModel, Field
+
 
 class IndexEntry(BaseModel):
     """
     Pydantic model representing a single entry in the chat history index.
     Provides data validation and a clear schema.
     """
+
     file: str = Field(..., description="The filename of the chat chunk, e.g., 'chat_history_00001.md'")
     summary: str = Field(..., description="A brief summary of the chunk's content.")
     project_name: str = Field(..., description="The name of the project or repository.")

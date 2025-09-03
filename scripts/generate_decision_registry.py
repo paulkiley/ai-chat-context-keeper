@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -93,17 +93,11 @@ def write_registry(entries: list[AdrEntry]) -> Path:
 
 def write_dot(entries: list[AdrEntry]) -> Path:
     lines = ["digraph ADR {", "rankdir=LR;"]
-    # Nodes with color by status
+    # Nodes
     for e in entries:
-        label = f"{e.id}: {e.title.replace('"', '\\"')}\n({e.status})"
-        color = "black"
-        if e.status.lower().startswith("accepted"):
-            color = "green"
-        elif e.status.lower().startswith("superseded"):
-            color = "orange"
-        elif e.status.lower().startswith("proposed"):
-            color = "blue"
-        lines.append(f'  "{e.id}" [label="{label}", color="{color}"];')
+        title_escaped = e.title.replace('"', '\"')
+        label = f"{e.id}: {title_escaped}\n({e.status})"
+        lines.append(f'  "{e.id}" [label="{label}"];')
     # Edges
     for e in entries:
         for dep in e.depends_on:
@@ -113,15 +107,6 @@ def write_dot(entries: list[AdrEntry]) -> Path:
     lines.append("}")
     dot = ADR_DIR / "graph.dot"
     dot.write_text("\n".join(lines), encoding="utf-8")
-    # Simple hotspot detection (nodes with high degree)
-    degree: dict[str, int] = {e.id: 0 for e in entries}
-    for e in entries:
-        for dep in e.depends_on:
-            degree[dep] = degree.get(dep, 0) + 1
-        for sup in e.supersedes:
-            degree[sup] = degree.get(sup, 0) + 1
-    hotspots = sorted(degree.items(), key=lambda x: x[1], reverse=True)[:5]
-    print("Hotspots (top degree):", ", ".join(f"{k}:{v}" for k, v in hotspots))
     return dot
 
 

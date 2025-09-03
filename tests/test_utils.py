@@ -1,8 +1,8 @@
 from chat_history_manager.utils import (
     ensure_chat_history_dir_exists,
-    write_chat_chunk,
-    read_chat_chunk,
     extract_latest_conversation,
+    read_chat_chunk,
+    write_chat_chunk,
 )
 
 
@@ -20,4 +20,3 @@ def test_extract_latest_conversation_truncates():
     # default chunk size is 4000 per settings
     assert len(out) == 4000
     assert out == "A" * 4000
-

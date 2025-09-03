@@ -1,0 +1,3 @@
+{
+  "chore/doctor-ci": { "depends_on": ["chore/make-init-pr"] }
+}
