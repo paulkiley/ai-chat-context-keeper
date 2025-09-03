@@ -65,6 +65,7 @@ Documentation
  - Known issues: `KNOWN_ISSUES.md`
  - Security advisories: `SECURITY_ADVISORIES.md`
  - Release notes: `releases/`
+  - Example app: https://github.com/paulkiley/ai-chat-context-app-template
 
 Retention
 
