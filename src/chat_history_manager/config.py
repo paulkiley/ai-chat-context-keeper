@@ -8,6 +8,24 @@ from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from .secrets_provider import default_provider
 
+def _apply_env_compat() -> None:
+    """Map new CHM_* variables to legacy names if legacy unset.
+
+    - CHM_HISTORY_BASE_DIR -> CHAT_HISTORY_BASE_DIR
+    - CHM_RETENTION_MAX_CHUNKS -> CHAT_RETENTION_MAX_CHUNKS
+    - CHM_RETENTION_MAX_AGE_DAYS -> CHAT_RETENTION_MAX_AGE_DAYS
+    - CHM_READ_ONLY -> READ_ONLY
+    """
+    mapping = {
+        "CHM_HISTORY_BASE_DIR": "CHAT_HISTORY_BASE_DIR",
+        "CHM_RETENTION_MAX_CHUNKS": "CHAT_RETENTION_MAX_CHUNKS",
+        "CHM_RETENTION_MAX_AGE_DAYS": "CHAT_RETENTION_MAX_AGE_DAYS",
+        "CHM_READ_ONLY": "READ_ONLY",
+    }
+    for src, dst in mapping.items():
+        if src in os.environ and dst not in os.environ:
+            os.environ[dst] = os.environ[src]
+
 def _default_history_base_dir() -> Path:
     # Cross-platform sensible defaults with override via env
     system = platform.system().lower()
@@ -45,6 +63,9 @@ def _interpolate(text: str) -> str:
         return val if val is not None else ""
 
     return VAR_PATTERN.sub(repl, text)
+
+
+_apply_env_compat()
 
 
 class Settings(BaseSettings):

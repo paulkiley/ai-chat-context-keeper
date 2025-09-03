@@ -38,4 +38,3 @@ env:
 Storage
 
 - Mount a PersistentVolume at the path used by `CHAT_HISTORY_BASE_DIR`.
-

@@ -1,11 +1,11 @@
-Chat History Manager
+AI Chat Context Keeper
 
 [![commitlint](https://github.com/paulkiley/chat_history_manager/actions/workflows/commitlint.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/commitlint.yml)
 [![semantic-pr-title](https://github.com/paulkiley/chat_history_manager/actions/workflows/semantic-pr.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/semantic-pr.yml)
 [![python-tests](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-tests.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-tests.yml)
 [![python-lint](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-lint.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-lint.yml)
 
-A robust Python system for saving and retrieving conversational AI history. It stores chat chunks as Markdown files and maintains a searchable JSON index.
+Never lose your AI chat context again. This tool captures resilient chunks of your conversations and maintains a searchable index so crashes, refreshes, or session resets don’t erase your progress.
 
 Quick Start
 
@@ -22,15 +22,16 @@ CLI
 - Save from file: `uv run chatlog save --project-name MyProj --topic Setup --file notes.txt`
 - Retrieve latest: `uv run chatlog retrieve --project-name MyProj --topic Setup --limit 3`
  - Dry-run preview (no writes): `pbpaste | uv run chatlog save --project-name MyProj --topic Setup --dry-run`
+ - Alias: `uv run chm ...` works the same as `chatlog`
 
 Configuration (CNCF-aligned)
 
 - No committed personal config: This repo contains no project-specific paths or secrets.
-- Env-first: Configure with environment variables (12-factor). Example:
-  - `export CHAT_HISTORY_BASE_DIR="${HOME}/Library/Application Support/chat_history_manager/history"`
-- Interpolation: Values support `${VAR}` and `${VAR:-default}`. Nested values expand env first, then OS keychain (if `keyring` installed).
-  - Example: `export CHAT_HISTORY_BASE_DIR='${CHM_HISTORY_DIR:-${HOME}/.local/share/chat_history_manager/history}'`
-  - Set `CHM_HISTORY_DIR` in Keychain (macOS): `python -m keyring set chat_history_manager CHM_HISTORY_DIR` then enter the path.
+- Env-first: Configure with environment variables (12-factor).
+- Interpolation: `${VAR}` and `${VAR:-default}` with optional OS keychain fallback.
+- Preferred env prefix: `CHM_…` (compat with existing `CHAT_*` / `CHATLOG_*`).
+  - Example: `export CHM_HISTORY_BASE_DIR='${CHM_HISTORY_DIR:-${HOME}/.local/share/chat_history_manager/history}'`
+  - Keychain example (macOS): `python -m keyring set chat_history_manager CHM_HISTORY_DIR` then enter the path.
 - Defaults: If unset, a sensible per-OS default is used:
   - macOS: `~/Library/Application Support/chat_history_manager/history`
   - Linux: `${XDG_DATA_HOME:-~/.local/share}/chat_history_manager/history`
@@ -82,6 +83,13 @@ Current Scope
 - Markdown chunks + JSON index with simple filters (project/topic/session).
 - Configuration via environment with interpolation; optional keyring fallback.
 - Quality gates (tests, lint) and docs-as-code with ADRs.
+
+Naming & Compatibility
+
+- Repo: to be renamed to `ai-chat-context-keeper`.
+- Python import path stays `chat_history_manager`; distribution name becomes `ai-chat-context-keeper`.
+- CLI aliases: `chatlog` and `chm`.
+- Env vars: prefer `CHM_*`; legacy `CHAT_*` and `CHATLOG_*` remain supported during a deprecation window.
 
 Conventional Commits & Atomic History
 

@@ -1,6 +1,6 @@
-# Chat History Manager
+# AI Chat Context Keeper
 
-Minimal, portable tools to capture and retrieve AI chat history.
+Minimal, portable tools to capture and quickly resume AI chat context — even after crashes, refreshes, or session resets.
 
 Highlights
 
@@ -9,4 +9,3 @@ Highlights
 - Markdown chunks + JSON index (newest-first)
 - CLI for save/retrieve + VS Code tasks
 - Tests, lint, and commit policy guardrails in CI
-

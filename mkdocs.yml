@@ -1,4 +1,4 @@
-site_name: Chat History Manager
+site_name: AI Chat Context Keeper
 repo_url: https://github.com/paulkiley/chat_history_manager
 theme:
   name: material

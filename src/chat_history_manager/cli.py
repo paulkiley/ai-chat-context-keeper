@@ -72,7 +72,10 @@ def cmd_retrieve(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="chatlog",
-        description="Save and retrieve AI chat history chunks.",
+        description=(
+            "Capture and retrieve AI chat context chunks for resilient "
+            "recovery and quick resumption."
+        ),
     )
 
     sub = p.add_subparsers(dest="command", required=True)
