@@ -1,9 +1,9 @@
 AI Chat Context Keeper
 
-[![commitlint](https://github.com/paulkiley/chat_history_manager/actions/workflows/commitlint.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/commitlint.yml)
-[![semantic-pr-title](https://github.com/paulkiley/chat_history_manager/actions/workflows/semantic-pr.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/semantic-pr.yml)
-[![python-tests](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-tests.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-tests.yml)
-[![python-lint](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-lint.yml/badge.svg)](https://github.com/paulkiley/chat_history_manager/actions/workflows/python-lint.yml)
+[![commitlint](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/commitlint.yml/badge.svg)](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/commitlint.yml)
+[![semantic-pr-title](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/semantic-pr.yml/badge.svg)](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/semantic-pr.yml)
+[![python-tests](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/python-tests.yml/badge.svg)](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/python-tests.yml)
+[![python-lint](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/python-lint.yml/badge.svg)](https://github.com/paulkiley/ai-chat-context-keeper/actions/workflows/python-lint.yml)
 
 Never lose your AI chat context again. This tool captures resilient chunks of your conversations and maintains a searchable index so crashes, refreshes, or session resets don’t erase your progress.
 
