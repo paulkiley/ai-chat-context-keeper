@@ -6,6 +6,7 @@ from typing import Optional, List
 from .main import save_chat_history, retrieve_chat_history
 from .utils import get_next_chunk_number
 from .config import settings
+from .branding import PRODUCT_TITLE
 
 
 def _parse_keywords(raw: Optional[str]) -> Optional[List[str]]:
@@ -73,8 +74,8 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="chatlog",
         description=(
-            "Capture and retrieve AI chat context chunks for resilient "
-            "recovery and quick resumption."
+            f"{PRODUCT_TITLE}: capture and retrieve AI chat context chunks "
+            "for resilient recovery and quick resumption."
         ),
     )
 

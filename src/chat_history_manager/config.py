@@ -95,6 +95,11 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    def __init__(self, **data):
+        # Ensure CHM_* env variables are mapped just before reading env
+        _apply_env_compat()
+        super().__init__(**data)
+
     @field_validator("CHAT_HISTORY_BASE_DIR", mode="before")
     @classmethod
     def expand_and_interpolate(cls, v: Any) -> Any:

@@ -12,6 +12,17 @@ repos:
       - id: trailing-whitespace
       - id: check-yaml
       - id: check-added-large-files
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        args: ["-L", "hist"]
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.5.7

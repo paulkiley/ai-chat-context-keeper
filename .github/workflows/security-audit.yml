@@ -1,0 +1,24 @@
+name: security-audit
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  pip-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install project
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+          pip install pip-audit
+      - name: Run pip-audit
+        run: pip-audit -r <(python -c "import importlib.metadata, json; print('\n'.join(dist.metadata['Name']+'=='+dist.version for dist in importlib.metadata.distributions()))") || true
+
