@@ -109,3 +109,7 @@ Clean Up History (example)
 ## PR Dependency Ordering
 
 See docs/ops/pr-ordering.md for how dependency mapping works and local triage commands.
+
+## Governance
+
+- Solo operator protocol: see docs/ops/solo-operator-governance.md
