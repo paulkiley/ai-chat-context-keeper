@@ -110,4 +110,6 @@ Clean Up History (example)
 
 See docs/ops/pr-ordering.md for how dependency mapping works and local triage commands.
 
-### Pragmatism & Phased Adoption\nThis framework is modular: start with local hooks + pr-order, then enable additional guardrails (ADR/traceability/security) as maturity and needs grow.
+## Governance
+
+- Solo operator protocol: see docs/ops/solo-operator-governance.md
