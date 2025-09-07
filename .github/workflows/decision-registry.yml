@@ -9,9 +9,9 @@ jobs:
   build-registry:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # pin: v4
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # pin: v5
         with:
           python-version: '3.12'
       - name: Generate registry + dot
@@ -22,7 +22,7 @@ jobs:
       - name: Render graph PNG
         run: dot -Tpng docs/adr/graph.dot -o docs/adr/graph.png
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # pin: v4
         with:
           name: decision-registry
           path: |
