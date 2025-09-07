@@ -12,7 +12,7 @@ jobs:
         run: |
           set -e
           tmp=$(mktemp)
-          if grep -REn "uses:\s+[^@]+@" .github/workflows | grep -Ev "@[0-9a-fA-F]{40}" | tee "$tmp" | grep -q .; then
+          if grep -REn "uses:\s+[^@]+@" .github/workflows | grep -Ev "@[0-9a-fA-F]{40} " | tee "$tmp" | grep -q .; then
             echo "Unpinned GitHub Actions detected:" >&2
             cat "$tmp" >&2
             exit 1
