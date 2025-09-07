@@ -49,3 +49,7 @@ git commit -m "chore(ops): restore exec bit"
 - Add a fake dependency branch name; verify CI fails with “Dependency PR not found.”
 
 These scenarios help teams learn the safety net and how to recover quickly.
+
+## Future Considerations
+- At scale, prefer PR body trailers (e.g., `Depends-On: #123`) and label-based cohorts to avoid JSON merge hotspots.
+- Publish a nightly dependency graph for visibility.
