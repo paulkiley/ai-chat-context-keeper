@@ -71,4 +71,4 @@ ruff format .                 # format
 pytest -q
 ```
 
-### Phased Adoption\nUse the paved road incrementally; propose improvements via a Proposed ADR when guardrails need tuning.
+### Phased Adoption\\nUse the paved road incrementally; propose improvements via a Proposed ADR when guardrails need tuning.
