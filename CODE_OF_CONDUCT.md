@@ -14,4 +14,3 @@ Enforcement
 - Maintainers may take appropriate action, including warnings or removal.
 
 Attribution: Portions adapted from the Contributor Covenant.
-

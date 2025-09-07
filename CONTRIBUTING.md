@@ -53,11 +53,11 @@ Fill in Motivation, Changes, and Testing steps. Call out breaking changes.
 To gate merges on CI checks:
 
 1. GitHub → Settings → Branches → Add rule (for `main`).
-2. Enable: Require a pull request before merging, Dismiss stale approvals, Require status checks to pass.
-3. Select required checks:
+1. Enable: Require a pull request before merging, Dismiss stale approvals, Require status checks to pass.
+1. Select required checks:
    - `commitlint`
    - `semantic-pr-title`
-4. (Optional) Require linear history and/or signed commits.
+1. (Optional) Require linear history and/or signed commits.
 
 ## Code Style & Tests
 

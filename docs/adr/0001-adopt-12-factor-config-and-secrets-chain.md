@@ -26,4 +26,3 @@ Adopt an env-first configuration model with `${VAR}` and `${VAR:-default}` inter
 
 - Requires developers to set environment variables or keychain entries.
 - Some complexity in interpolation logic and support.
-

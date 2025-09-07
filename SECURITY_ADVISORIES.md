@@ -11,4 +11,3 @@ Notes
 Reporting
 
 - See `SECURITY.md` for private disclosure instructions.
-

@@ -28,4 +28,3 @@ The framework (library + CLI) should evolve independently from applications cons
 
 - Two repositories to maintain; coordination for cross-cutting changes.
 - Requires publishing/tagging discipline in the framework.
-

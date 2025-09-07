@@ -21,4 +21,3 @@ jobs:
           pip install pip-audit
       - name: Run pip-audit
         run: pip-audit -r <(python -c "import importlib.metadata, json; print('\n'.join(dist.metadata['Name']+'=='+dist.version for dist in importlib.metadata.distributions()))") || true
-

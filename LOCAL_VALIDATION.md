@@ -57,7 +57,7 @@ make docs-serve  # http://localhost:8000
 
 Keyring fallback (optional)
 
-```sh
+````sh
 uv pip install -e .[secrets]
 python - <<'PY'
 import keyring; keyring.set_password('chat_history_manager','CHM_HISTORY_DIR','/tmp/chm')
@@ -79,5 +79,7 @@ make smoke-staging
 CHM_STAGE_SRC="/path/to/gemini_chat_history" \
 CHM_STAGE_DIR="/tmp/gemini_chat_history_staging" \
 make smoke-staging
+````
+
 ```
 ```

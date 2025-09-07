@@ -17,4 +17,3 @@ jobs:
       - name: Validate traceability
         run: |
           python scripts/validate_traceability.py
-

@@ -23,4 +23,3 @@ printf 'staging smoke %s\n' "$(date)" | uv run chatlog save --project-name Z_TES
 uv run chatlog retrieve --project-name Z_TEST --topic SMOKE --limit 1
 
 echo "[staging] Success"
-

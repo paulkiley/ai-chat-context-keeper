@@ -9,10 +9,10 @@ Date: {YYYY-MM-DD}
 ## Metadata
 
 - id: {ID}
-- supersedes: []
-- depends_on: []
-- informs: []
-- tags: []
+- supersedes: \[\]
+- depends_on: \[\]
+- informs: \[\]
+- tags: \[\]
 - owner: {Team/Owner}
 - review_cadence: {Quarterly/Monthly}
 

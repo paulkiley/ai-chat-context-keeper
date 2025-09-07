@@ -26,4 +26,3 @@ Store chat chunks as Markdown files (`chat_history_00001.md`, ...). Maintain a J
 
 - No full-text search; future work may add indexing or external search.
 - Large histories may require compaction/rotation policies later.
-

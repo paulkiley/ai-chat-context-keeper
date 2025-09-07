@@ -14,4 +14,3 @@ Best Practices
 - Do not commit secrets or personal configurations.
 - Prefer environment variables and OS keychain for development.
 - In Kubernetes, use External Secrets Operator to source secrets from a cloud manager.
-

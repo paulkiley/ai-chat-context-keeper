@@ -23,4 +23,3 @@ Portability
 Performance
 
 - Very large indices could degrade retrieval performance; compaction/rotation tooling is not yet implemented.
-

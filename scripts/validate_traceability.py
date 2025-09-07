@@ -4,7 +4,6 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 ADR_DIR = ROOT / "docs" / "adr"

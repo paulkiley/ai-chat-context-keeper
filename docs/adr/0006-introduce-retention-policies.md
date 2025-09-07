@@ -30,4 +30,3 @@ Retention runs after each save operation. The index is rewritten, and pruned chu
 
 - Deletions are irreversible; backups/archives should be handled separately.
 - Age-based pruning uses local time; future work could add UTC handling.
-

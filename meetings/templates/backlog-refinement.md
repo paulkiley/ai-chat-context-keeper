@@ -6,5 +6,6 @@
 - Assign readiness (move to Ready when clear)
 
 Notes:
+
 - Link: Decision Registry & Graph
 - Link: Traceability view
