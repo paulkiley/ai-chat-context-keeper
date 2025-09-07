@@ -4,4 +4,3 @@ PACKAGE_IMPORT = "chat_history_manager"
 CLI_PRIMARY = "chatlog"
 CLI_ALIASES = ["chm"]
 ENV_PREFIX = "CHM"
-

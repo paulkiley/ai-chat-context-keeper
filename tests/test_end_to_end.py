@@ -1,6 +1,7 @@
-from chat_history_manager.main import save_chat_history, retrieve_chat_history
-from chat_history_manager.utils import read_chat_index
 from pathlib import Path
+
+from chat_history_manager.main import retrieve_chat_history, save_chat_history
+from chat_history_manager.utils import read_chat_index
 
 
 def test_save_updates_index_and_retrieve(temp_history_dir):

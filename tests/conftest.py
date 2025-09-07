@@ -1,5 +1,5 @@
-import os
 import io
+
 import pytest
 
 
@@ -18,5 +18,5 @@ def temp_history_dir(tmp_path, monkeypatch):
 def stdin_text(monkeypatch):
     def _set(text: str):
         monkeypatch.setattr("sys.stdin", io.StringIO(text))
-    return _set
 
+    return _set

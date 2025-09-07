@@ -6,7 +6,9 @@ from typing import Any
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from .secrets_provider import default_provider
+
 
 def _apply_env_compat() -> None:
     """Map new CHM_* variables to legacy names if legacy unset.
@@ -25,6 +27,7 @@ def _apply_env_compat() -> None:
     for src, dst in mapping.items():
         if src in os.environ and dst not in os.environ:
             os.environ[dst] = os.environ[src]
+
 
 def _default_history_base_dir() -> Path:
     # Cross-platform sensible defaults with override via env
@@ -75,6 +78,7 @@ class Settings(BaseSettings):
     The base directory for chat history defaults to a hidden directory
     in the user's home folder, which is a robust cross-platform standard.
     """
+
     CHAT_HISTORY_BASE_DIR: Path = _default_history_base_dir()
 
     @property
@@ -120,5 +124,6 @@ class Settings(BaseSettings):
             return v
         val = str(v).lower()
         return val in {"1", "true", "yes", "on", "y", "t"}
+
 
 settings = Settings()
