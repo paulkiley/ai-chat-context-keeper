@@ -1,0 +1,29 @@
+{
+  "initiatives": [
+    {
+      "id": "INIT-001",
+      "title": "Crash-safe AI chat context capture",
+      "okrs": [
+        "OKR-DEV-01"
+      ],
+      "adrs": [
+        "3",
+        "6",
+        "7",
+        "8"
+      ],
+      "epics": [
+        "https://example.com/tracker/EPIC-100",
+        "https://example.com/tracker/EPIC-101"
+      ],
+      "controls": [
+        "NIST-800-53:SC-28",
+        "NIST-800-53:AU-2"
+      ],
+      "slos": [
+        "SLO-PR-FEEDBACK-P95-15M",
+        "SLO-SAVE-SUCCESS-99_9"
+      ]
+    }
+  ]
+}

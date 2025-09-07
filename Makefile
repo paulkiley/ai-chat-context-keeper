@@ -1,4 +1,4 @@
-.PHONY: help venv install hooks lint format test clean ci cz-bump docs-serve docs-build e2e smoke-staging
+.PHONY: help venv install hooks lint format test clean ci cz-bump docs-serve docs-build e2e smoke-staging init pr
 
 UV=uv
 PY=$(UV) run python
@@ -46,5 +46,24 @@ docs-build: ## Build mkdocs site
 e2e: ## Run local end-to-end validation script
 	bash scripts/local_e2e.sh
 
+bench-save: ## Measure local save latency (ms)
+	$(UV) run python scripts/bench_save_latency.py
+
 smoke-staging: ## Rsync real history to a staging dir and run a safe smoke test
 	bash scripts/smoke_staging.sh
+
+init: ## One-shot setup (labels + milestones + project sync)
+	bash scripts/ops.sh labels
+	bash scripts/ops.sh milestones
+	bash scripts/ops.sh project-sync
+
+pr: ## Create a PR in one command (TITLE required; optional LABELS, MILESTONE, BASE)
+	@if [ -z "$(TITLE)" ]; then \
+		echo "Usage: make pr TITLE='feat(scope): summary' [LABELS='a,b'] [MILESTONE='Q3-Foundation'] [BASE='main']"; \
+		exit 2; \
+	fi; \
+	cmd="pr --title \"$(TITLE)\""; \
+	if [ -n "$(LABELS)" ]; then cmd="$$cmd --labels \"$(LABELS)\""; fi; \
+	if [ -n "$(MILESTONE)" ]; then cmd="$$cmd --milestone \"$(MILESTONE)\""; fi; \
+	if [ -n "$(BASE)" ]; then cmd="$$cmd --base \"$(BASE)\""; fi; \
+	bash scripts/ops.sh $$cmd

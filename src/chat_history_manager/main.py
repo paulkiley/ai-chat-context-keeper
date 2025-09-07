@@ -25,6 +25,9 @@ def save_chat_history(
     session_id: Optional[str] = None,
     summary: Optional[str] = None,
     keywords: Optional[List[str]] = None,
+    adrs: Optional[List[str]] = None,
+    epics: Optional[List[str]] = None,
+    capabilities: Optional[List[str]] = None,
     dry_run: bool = False,
 ) -> Path:
     """Saves a chunk of chat history and updates the index."""
@@ -46,10 +49,13 @@ def save_chat_history(
         new_entry = IndexEntry(
             file=file_path.name,
             summary=summary or f"Chat chunk for {project_name} - {topic}",
-            keywords=keywords or [project_name, topic],
-            project_name=project_name,
-            topic=topic,
-            session_id=session_id,
+        keywords=keywords or [project_name, topic],
+        adrs=adrs or [],
+        epics=epics or [],
+        capabilities=capabilities or [],
+        project_name=project_name,
+        topic=topic,
+        session_id=session_id,
             start_datetime=current_datetime,
             end_datetime=current_datetime,
         )
