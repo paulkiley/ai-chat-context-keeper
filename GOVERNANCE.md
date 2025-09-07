@@ -18,4 +18,3 @@ PR Process
 Releases
 
 - Maintainers may cut releases using Commitizen (`cz bump`) following semver.
-

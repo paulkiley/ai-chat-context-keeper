@@ -28,4 +28,3 @@ Accidental writes to production-like history folders and concurrent writers can 
 
 - Locking semantics may vary on network filesystems; best-effort only.
 - Additional code paths and flags to support, document, and test.
-

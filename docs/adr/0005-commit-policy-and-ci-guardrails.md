@@ -20,9 +20,9 @@ Adopt Conventional Commits and atomic commits. Enforce via pre-commit/Commitizen
 
 - Clean, searchable history and reliable automation.
 - Consistency across contributors and tools.
- - Flexible header length (120) balances clarity and concision.
+- Flexible header length (120) balances clarity and concision.
 
 ### Negative
 
 - Slight overhead for contributors to learn and adhere to the standard.
- - Longer headers can still degrade readability if overused.
+- Longer headers can still degrade readability if overused.

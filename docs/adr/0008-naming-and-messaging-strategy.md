@@ -13,13 +13,13 @@ Names should clearly communicate the purpose of the project: resilient AI chat c
 ## Decision
 
 1. Repository naming: use kebab-case `ai-chat-context-keeper` for the GitHub repository.
-2. Python packaging: keep the import path `chat_history_manager`; set distribution/project name to `ai-chat-context-keeper`.
-3. CLI: keep `chatlog` and add a short alias `chm`.
-4. Environment variables: standardize on `CHM_…` prefix. Maintain backward compatibility with existing names during a deprecation window.
+1. Python packaging: keep the import path `chat_history_manager`; set distribution/project name to `ai-chat-context-keeper`.
+1. CLI: keep `chatlog` and add a short alias `chm`.
+1. Environment variables: standardize on `CHM_…` prefix. Maintain backward compatibility with existing names during a deprecation window.
    - Preferred: `CHM_HISTORY_BASE_DIR`, `CHM_RETENTION_MAX_CHUNKS`, `CHM_RETENTION_MAX_AGE_DAYS`, `CHM_READ_ONLY`.
    - Compatibility: also read `CHAT_HISTORY_BASE_DIR`, `CHAT_RETENTION_*`, and `CHATLOG_READ_ONLY`.
-5. Messaging: update README/docs to emphasize crash-safe capture and rapid resumption of AI chat context.
-6. App separation: provide a separate example app repository (`ai-chat-context-app-template`) that consumes the framework as a dependency.
+1. Messaging: update README/docs to emphasize crash-safe capture and rapid resumption of AI chat context.
+1. App separation: provide a separate example app repository (`ai-chat-context-app-template`) that consumes the framework as a dependency.
 
 ## Consequences
 

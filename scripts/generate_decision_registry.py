@@ -95,7 +95,7 @@ def write_dot(entries: list[AdrEntry]) -> Path:
     lines = ["digraph ADR {", "rankdir=LR;"]
     # Nodes
     for e in entries:
-        title_escaped = e.title.replace('"', '\"')
+        title_escaped = e.title.replace('"', '"')
         label = f"{e.id}: {title_escaped}\n({e.status})"
         lines.append(f'  "{e.id}" [label="{label}"];')
     # Edges

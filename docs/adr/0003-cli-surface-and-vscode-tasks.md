@@ -20,9 +20,9 @@ Provide a Python console script `chatlog` with `save` and `retrieve` subcommands
 
 - Fast, scriptable workflows; minimal friction to log chats.
 - Editor integration for common actions.
- - Safer operations on real data via read-only and dry-run; fewer footguns.
+- Safer operations on real data via read-only and dry-run; fewer footguns.
 
 ### Negative
 
 - Editor-specific tasks need maintenance; CLI remains the stable surface.
- - Safety flags introduce extra states to consider during support.
+- Safety flags introduce extra states to consider during support.

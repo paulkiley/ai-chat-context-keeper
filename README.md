@@ -14,15 +14,15 @@ Quick Start
 - Optional: `uv pip install .[secrets]` to enable OS keychain integration via `keyring`.
 - Enable hooks: `pre-commit install && pre-commit install --hook-type commit-msg`
   - Lint/format: `pre-commit run -a`
- - Makefile shortcuts: `make lint | make format | make test | make ci`
+- Makefile shortcuts: `make lint | make format | make test | make ci`
 
 CLI
 
 - Save from stdin: `pbpaste | uv run chatlog save --project-name MyProj --topic Setup --summary "Initial setup"`
 - Save from file: `uv run chatlog save --project-name MyProj --topic Setup --file notes.txt`
 - Retrieve latest: `uv run chatlog retrieve --project-name MyProj --topic Setup --limit 3`
- - Dry-run preview (no writes): `pbpaste | uv run chatlog save --project-name MyProj --topic Setup --dry-run`
- - Alias: `uv run chm ...` works the same as `chatlog`
+- Dry-run preview (no writes): `pbpaste | uv run chatlog save --project-name MyProj --topic Setup --dry-run`
+- Alias: `uv run chm ...` works the same as `chatlog`
 
 Configuration (CNCF-aligned)
 
@@ -60,12 +60,12 @@ Documentation
 - Architecture: `docs/architecture.md`
 - Development: `docs/development.md`
 - ADRs: `docs/adr/`
- - Docs site (MkDocs): build locally with `make docs-build` or serve with `make docs-serve`. CI publishes to GitHub Pages (enable Pages for the repo).
- - Roadmap: `ROADMAP.md`
- - Known issues: `KNOWN_ISSUES.md`
- - Security advisories: `SECURITY_ADVISORIES.md`
- - Release notes: `releases/`
-  - Example app: https://github.com/paulkiley/ai-chat-context-app-template
+- Docs site (MkDocs): build locally with `make docs-build` or serve with `make docs-serve`. CI publishes to GitHub Pages (enable Pages for the repo).
+- Roadmap: `ROADMAP.md`
+- Known issues: `KNOWN_ISSUES.md`
+- Security advisories: `SECURITY_ADVISORIES.md`
+- Release notes: `releases/`
+- Example app: https://github.com/paulkiley/ai-chat-context-app-template
 
 Retention
 
@@ -105,7 +105,6 @@ Clean Up History (example)
   - `git rebase -i origin/main`
   - Mark small follow-ups as `fixup` or `squash` under the main commit.
   - Force-push your branch if needed: `git push -f`.
-
 
 ## PR Dependency Ordering
 

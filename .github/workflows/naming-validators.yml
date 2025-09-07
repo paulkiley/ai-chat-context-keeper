@@ -17,4 +17,3 @@ jobs:
       - name: Run naming validator
         run: |
           python scripts/validate_naming.py
-

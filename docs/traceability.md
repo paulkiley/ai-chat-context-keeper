@@ -14,4 +14,3 @@ Usage
 
 - Add a new initiative to `docs/traceability.json` with IDs for OKRs, ADRs, epics (ticket URLs), control IDs (e.g., NIST 800‑53), and SLO IDs.
 - The validator ensures that ADR IDs exist in `docs/adr/`.
-

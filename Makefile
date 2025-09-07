@@ -1,4 +1,4 @@
-.PHONY: help venv install hooks lint format test clean ci cz-bump docs-serve docs-build e2e smoke-staging init pr
+.PHONY: help venv install hooks lint format test clean ci cz-bump docs-serve docs-build e2e smoke-staging init pr doctor doctor-ci doctor
 
 UV=uv
 PY=$(UV) run python
@@ -67,3 +67,8 @@ pr: ## Create a PR in one command (TITLE required; optional LABELS, MILESTONE, B
 	if [ -n "$(MILESTONE)" ]; then cmd="$$cmd --milestone \"$(MILESTONE)\""; fi; \
 	if [ -n "$(BASE)" ]; then cmd="$$cmd --base \"$(BASE)\""; fi; \
 	bash scripts/ops.sh $$cmd
+
+doctor: ## Run validators; print CI/deps hints and next actions
+	bash scripts/ops.sh doctor
+doctor-ci: ## Show latest CI status for current branch and print failing job logs
+	bash scripts/ops.sh doctor-ci

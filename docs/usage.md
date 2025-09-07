@@ -14,4 +14,3 @@
   - `uv run chatlog save --project-name MyProj --topic Setup --file notes.txt`
 - Retrieve latest 3:
   - `uv run chatlog retrieve --project-name MyProj --topic Setup --limit 3`
-

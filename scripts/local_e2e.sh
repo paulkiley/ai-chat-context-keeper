@@ -64,4 +64,3 @@ if echo "$OUT2" | grep -q "hello-2"; then
 fi
 
 log "SUCCESS: local E2E passed"
-

@@ -29,4 +29,3 @@ jobs:
             docs/adr/registry.json
             docs/adr/graph.dot
             docs/adr/graph.png
-

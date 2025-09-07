@@ -46,4 +46,3 @@ Out of Scope (for now)
 - Multi-tenant server/service backend.
 - End-to-end encryption of history at rest (future consideration).
 - LLM-specific tooling beyond generic chat capture/retrieval.
-

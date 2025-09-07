@@ -25,4 +25,3 @@ python - <<'PY'
 import keyring; keyring.set_password('chat_history_manager','CHM_HISTORY_DIR','/path/to/history')
 PY
 ```
-

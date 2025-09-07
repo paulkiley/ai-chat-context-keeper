@@ -87,6 +87,111 @@ cmd_project_add_backlog() {
   done <<< "$urls"
 }
 
+# Find or create project by title, then add Q3 backlog
+cmd_project_sync() {
+  require gh
+  local title="${1:-$OPS_PROJECT_TITLE}"
+  echo "Syncing project titled: $title"
+  local number
+  number=$(gh project list --owner @me --format json -q ".[] | select(.title == \"$title\") | .number") || true
+  if [[ -z "$number" ]]; then
+    echo "Project not found. Creating…"
+    number=$(gh project create --owner @me --title "$title" --format json -q .number) || { echo "Failed to create project"; exit 1; }
+  fi
+  echo "Project number: $number"
+  cmd_project_add_backlog "$number"
+}
+
+# Auto-map labels from Conventional Commit title
+_map_labels_from_title() {
+  local t="$1"
+  case "$t" in
+    feat:*) echo "feature";;
+    fix:*) echo "ci";;
+    docs:*) echo "docs";;
+    ci:*) echo "ci";;
+    chore:*) echo "chore";;
+    refactor:*) echo "chore";;
+    *) echo "";;
+  esac
+}
+
+# Create PR with one command
+cmd_pr_create() {
+  require gh
+  pushd "$ROOT_DIR" >/dev/null
+  local title="" labels="" milestone="$OPS_Q3" base="main"
+  while [[ $# -gt 0 ]]; do case "$1" in
+    --title) title="$2"; shift 2;;
+    --labels) labels="$2"; shift 2;;
+    --milestone) milestone="$2"; shift 2;;
+    --base) base="$2"; shift 2;;
+    *) echo "Unknown flag: $1"; popd >/dev/null; exit 2;;
+  esac; done
+  if [[ -z "$title" ]]; then echo "Usage: ops.sh pr --title 'feat(scope): summary' [--labels 'a,b'] [--milestone '$OPS_Q3'] [--base main]"; popd >/dev/null; exit 2; fi
+  if [[ -z "$labels" ]]; then labels=$(_map_labels_from_title "$title"); fi
+  local args=( -t "$title" -F .github/pull_request_template.md -B "$base" )
+  [[ -n "$labels" ]] && args+=( -l "$labels" )
+  [[ -n "$milestone" ]] && args+=( -m "$milestone" )
+  gh pr create "${args[@]}"
+  popd >/dev/null
+}
+
+# Doctor: run validators, check deps, suggest next actions
+cmd_doctor() {
+  echo "Repo: $REPO_SLUG"
+  local ok=0
+  echo "Checking dependencies…"
+  for bin in gh python mkdocs; do
+    if ! command -v "$bin" >/dev/null 2>&1; then echo "- Missing: $bin"; ok=1; fi
+  done
+  if ! command -v dot >/dev/null 2>&1; then echo "- Optional: graphviz 'dot' not found (graphs won't render locally)"; fi
+  echo "\nRunning validators…"
+  if ! python "$ROOT_DIR/scripts/validate_naming.py"; then ok=1; fi
+  if ! python "$ROOT_DIR/scripts/validate_adrs.py"; then ok=1; fi
+  if ! python "$ROOT_DIR/scripts/validate_traceability.py"; then ok=1; fi
+  if command -v pre-commit >/dev/null 2>&1; then
+    echo "\nRunning pre-commit hooks (codespell/mdformat)…"
+    pre-commit run -a || true
+  else
+    echo "- pre-commit not installed; install with: uv pip install -e .[dev]"
+  fi
+  echo "\nGitHub auth status (scopes should include 'project' for Projects):"
+  gh auth status || true
+  echo "\nNext actions:"
+  if [[ $ok -ne 0 ]]; then
+    echo "- Fix validator errors above, then re-run: make ops OPS_CMD=\"validate\""
+  else
+    echo "- Validators passed"
+  fi
+  echo "- Create a PR (single command) e.g.:
+make pr TITLE=\"feat(scope): summary\""
+  echo "- If setting up for the first time, run: make init"
+}
+
+# Doctor CI: show latest CI status for current branch and failing logs
+cmd_doctor_ci() {
+  require gh
+  pushd "$ROOT_DIR" >/dev/null
+  local branch
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  echo "Branch: $branch"
+  echo "Latest workflow runs (status/conclusion):"
+  gh run list --branch "$branch" --limit 10 --json databaseId,workflowName,status,conclusion,createdAt -q '.[] | "\(.databaseId)\t\(.workflowName)\t\(.status)\t\(.conclusion)\t\(.createdAt)"'
+  echo "\nFailing jobs logs (if any):"
+  ids=$(gh run list --branch "$branch" --limit 10 --json databaseId,status,conclusion -q '.[] | select(.status=="completed" and .conclusion=="failure") | .databaseId')
+  if [[ -z "$ids" ]]; then
+    echo "- No failing runs detected."
+  else
+    while IFS= read -r id; do
+      [[ -z "$id" ]] && continue
+      echo "\n===== Logs for run $id ====="
+      gh run view "$id" --log || true
+    done <<< "$ids"
+  fi
+  popd >/dev/null
+}
+
 cmd_help() {
   cat <<EOF
 Usage: scripts/ops.sh <command>
@@ -102,6 +207,7 @@ Commands:
   project-sync       Auto-find or create the project by title and add Q3 backlog
   pr --title "…" [--labels "…"] [--milestone "…"] [--base main]
                      Create a PR with one command (auto-labels by title if omitted)
+  doctor-ci          Show latest CI status for current branch; print failing job logs
   help               Show this help
 
 Notes:
@@ -119,5 +225,6 @@ case "${1:-help}" in
   project-add-backlog) shift; cmd_project_add_backlog "$@" ;;
   project-sync) shift; cmd_project_sync "$@" ;;
   pr) shift; cmd_pr_create "$@" ;;
+  doctor-ci) shift; cmd_doctor_ci "$@" ;;
   help|*) cmd_help ;;
 esac

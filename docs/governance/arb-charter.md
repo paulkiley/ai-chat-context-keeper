@@ -19,4 +19,3 @@ Cadence & Process
 Membership
 
 - Platform, Security, Product, Domain leads (small and cross-functional).
-
